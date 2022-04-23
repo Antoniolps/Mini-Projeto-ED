@@ -32,6 +32,7 @@ public class ListaDisciplina {
 		this.tamanho = tamanho;
 	}
 	
+
 	public void adicionar(String nomeDisciplina, String nota) {
 		Disciplina novaDisciplina = new Disciplina(nomeDisciplina, nota);
 		

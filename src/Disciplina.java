@@ -32,4 +32,11 @@ public class Disciplina {
 	public void setProximo(Disciplina proximo) {
 		this.proximo = proximo;
 	}
+
+	@Override
+	public String toString() {
+		return "Disciplina: " + disciplina + ", Média: " + nota;
+	}
+	
+	
 }

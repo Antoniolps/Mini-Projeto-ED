@@ -22,4 +22,11 @@ public class Aluno {
 	public void setMaterias(String disciplina, String nota) {
 		this.materias.adicionar(disciplina, nota);
 	}
+	
+	@Override
+	public String toString() {
+		return "Aluno [nome=" + nome + ", rgm=" + rgm + ", materias=" + materias + "]";
+	}
+	
+	
 }

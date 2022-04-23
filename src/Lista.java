@@ -5,7 +5,10 @@ public class Lista {
 	
 	
 	public boolean isVazia() {
-		return (tamanho == 0);
+		if(tamanho == 0)
+			return true;
+		
+		return false;
 	}
 	
 	public boolean isCheia() {
@@ -20,12 +23,12 @@ public class Lista {
 		return(a1.nome.equals(a2.nome) && a1.rgm.equals(a2.rgm));
 	}
 	
-	public String buscar(String matricula) {
+	public Aluno buscar(String matricula) {
 		for(int i=0; i < tamanho; i++)
-			if(alunos[i].rgm.equals(matricula))
-				return alunos[i].nome;
+			if(alunos[i].rgm.equalsIgnoreCase(matricula))
+				return alunos[i];
 		
-		return "RGM não cadastrado";
+		return null;
 	}
 	
 	public int retornaPosicao(Aluno aluno) {
@@ -64,7 +67,18 @@ public class Lista {
 		return true;
 	}
 	
+	public void exibirPosicao(int i) {
+			System.out.println(	"\nAluno " + (i+1) + 
+								"\nNome: " + alunos[i].getNome() +
+								"\nRGM: "  + alunos[i].getRgm()  +
+								"\nDisciplinas: ");
+			alunos[i].getMaterias().exibirDisciplinas();
+	}
+	
 	public void exibirLista() {
+		if(isVazia())
+			System.out.println("A lista está vazia");
+		
 		for(int i = 0; i < tamanho; ++i) {
 			System.out.println(	"\nAluno " + (i+1) + 
 								"\nNome: " + alunos[i].getNome() +
