@@ -75,11 +75,11 @@ public class ListaDisciplina {
 		Disciplina atual = this.primeiro;
 		
 		if(tamanho == 0)
-			System.out.println("A lista de disciplinas do aluno está vazia!");
+			System.out.println("\nA Lista De Disciplinas Do Aluno Está Vazia!");
 		
 		if(tamanho > 0)
 			for(int i = 0; i < tamanho; i++) {
-				System.out.println("Disciplina: " + atual.getDisciplina() + "| Média na disciplina: " + atual.getNota());
+				System.out.println("Disciplina: " + atual.getDisciplina() + " | Média na Disciplina: " + atual.getNota());
 				atual = atual.getProximo();
 		}
 	}

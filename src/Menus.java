@@ -9,48 +9,54 @@ public class Menus {
 		Scanner entrada = new Scanner(System.in);
 		String resposta;
 		
-		System.out.print("Digite o nome do Aluno: ");
-		String nome = entrada.nextLine();
-		
-		System.out.print("Digite o rgm do Aluno: ");
-		String rgm = entrada.next();
-		entrada.nextLine();
-		
-		do {
+		if(!lista.isCheia()) {
+			System.out.print("\nInforme o Nome do Aluno: ");
+			String nome = entrada.nextLine();
 			
-			System.out.print("Digite a disciplina do Aluno: ");
-			String disciplina = entrada.nextLine();
-			
-			System.out.print("Digite a primeira nota do aluno: ");
-			double n1 = entrada.nextDouble();
-			
-			System.out.print("Digite a segunda nota do aluno: ");
-			double n2 = entrada.nextDouble();
-			
-			String media = String.valueOf((n1 + n2) / 2);
-			aluno.setNome(nome);
-			aluno.setRgm(rgm);
-			aluno.setMaterias(disciplina, media);
-			
-			System.out.println("Deseja cadastrar outra disciplina? (sim/não)");
-			resposta = entrada.next();
+			System.out.print("Informe o RGM do Aluno: ");
+			String rgm = entrada.next();
 			entrada.nextLine();
 			
-		}while(resposta.equalsIgnoreCase("sim"));
+			do {
+				
+				System.out.print("Informe a Disciplina do Aluno: ");
+				String disciplina = entrada.nextLine();
+				
+				System.out.print("Informe a Primeira Nota do Aluno: ");
+				double n1 = entrada.nextDouble();
+				
+				System.out.print("Informe a Segunda Nota do Aluno: ");
+				double n2 = entrada.nextDouble();
+				
+				String media = String.valueOf((n1 + n2) / 2);
+				aluno.setNome(nome);
+				aluno.setRgm(rgm);
+				aluno.setMaterias(disciplina, media);
+				
+				System.out.println("\nDeseja Cadastrar Nova Disciplina? (sim/não)");
+				resposta = entrada.next();
+				entrada.nextLine();
+				
+			}while(resposta.equalsIgnoreCase("sim"));
+				
+			boolean resultado = lista.inserir(count, aluno);
 			
-		boolean resultado = lista.inserir(count, aluno);
-		
-		if(resultado) {
-			System.out.println("Aluno inserido com sucesso deseja inserir outro aluno? ");
-			String resposta1 = entrada.next();
-			count++;
-			if(resposta1.equalsIgnoreCase("sim"))
-				cadastrarAluno();
+			if(resultado) {
+				System.out.println("\nAluno Cadastrado Com Sucesso! Deseja Cadastrar Novo Aluno?");
+				String resposta1 = entrada.next();
+				count++;
+				if(resposta1.equalsIgnoreCase("sim"))
+					cadastrarAluno();
+				else
+					menuPrincipal();
+			}
 			else
-				menuPrincipal();
+				System.out.println("\nAluno Não Foi Cadastrado.");
 		}
-		else
-			System.out.println("O aluno não foi inserido pois a lista está cheia.");
+		else {
+			System.out.println("A lista está cheia!");
+			menuPrincipal();
+		}
 		entrada.close();
 	}
 	
@@ -58,25 +64,30 @@ public class Menus {
 		Aluno aluno = new Aluno();
 		Scanner entrada = new Scanner(System.in);
 		
-		System.out.print("\nDigite o RGM que deseja pesquisar: ");
-		String rgm = entrada.next();
-		
-		aluno = lista.buscar(rgm);
-		
-		if(aluno == null)
-			System.out.println("RGM não cadastrado!");
-		else
-			lista.exibirPosicao(lista.retornaPosicao(aluno));
-		
-		System.out.println("Deseja pesquisar outro RGM?");
-		String resposta = entrada.next();
-		
-		if(resposta.equalsIgnoreCase("sim")) {
-			pesquisarAluno();
+		if(!lista.isVazia()) {
+			System.out.print("\nInforme o RGM Para Ser Pesquisado: ");
+			String rgm = entrada.next();
+			
+			aluno = lista.buscar(rgm);
+			
+			if(aluno == null)
+				System.out.println("\nRGM Informado Não Está Cadastrado!");
+			else
+				lista.exibirPosicao(lista.retornaPosicao(aluno));
+			
+			System.out.println("\nDeseja Pesquisar Outro RGM?");
+			String resposta = entrada.next();
+			
+			if(resposta.equalsIgnoreCase("sim")) {
+				pesquisarAluno();
+			}
+			else
+				menuPrincipal();
 		}
-		else
+		else {
+			System.out.println("\nA lista está vazia, adicione alguem primeiro para poder pesquisar!");
 			menuPrincipal();
-		
+		}
 		entrada.close();
 	}
 	
@@ -86,32 +97,40 @@ public class Menus {
 		
 		lista.exibirLista();
 		
-		System.out.println("Digite o RGM de quem voce deseja remover.");
-		String rgm = entrada.next();
+		if(!lista.isVazia()) {
+			System.out.print("\nInforme o RGM Para Ser Removido: ");
+			String rgm = entrada.next();
 		
-		int pos = lista.retornaPosicao(lista.buscar(rgm));
 		
-		boolean resultado = lista.remover(pos);
-		
-		if(resultado) {
-			lista.exibirLista();
-			if(!lista.isVazia()) {
-				System.out.println("\nAluno removido com sucesso, deseja remover outro Aluno?");
-				String resposta = entrada.next();
-				
-				if(resposta.equalsIgnoreCase("sim"))
-					removerAluno();
-				else
+			int pos = lista.retornaPosicao(lista.buscar(rgm));
+			
+			boolean resultado = lista.remover(pos);
+			
+			if(resultado) {
+				count--;
+				lista.exibirLista();
+				if(!lista.isVazia()) {
+					System.out.println("\nAluno Removido Com Sucesso, Deseja Remover Outro Aluno?");
+					String resposta = entrada.next();
+					
+					if(resposta.equalsIgnoreCase("sim"))
+						removerAluno();
+					else
+						menuPrincipal();
+				}
+				else {
+					System.out.println("\nAluno Foi Removido Com Sucesso!");
 					menuPrincipal();
+				}
 			}
 			else {
-				System.out.println("\nAluno removido com sucesso.");
-				menuPrincipal();
+				System.out.println("\nO RGM Informado Não Está na Lista!");
+				removerAluno();
 			}
 		}
 		else {
-			System.out.println("A o rgm digitado não está na lista!!!");
-			removerAluno();
+			System.out.println("Não é possivel remover pois a lista está vazia!");
+			menuPrincipal();
 		}
 		entrada.close();
 	}
@@ -120,11 +139,11 @@ public class Menus {
 		Scanner entrada = new Scanner(System.in);
 		
 		if(lista.isVazia())
-			System.out.println("\nA lista está vazia");
+			System.out.println("\nNão Há Cadastrados na Lista.");
 		else
 			lista.exibirLista();
 		
-		System.out.println("Deseja voltar ao menu principal? ");
+		System.out.println("\nDeseja Voltar ao Menu Principal?");
 		String resposta = entrada.next();
 		
 		if(resposta.equalsIgnoreCase("sim"))
@@ -135,24 +154,21 @@ public class Menus {
 		entrada.close();
 	}
 	
-	
-	
 	public void menuPrincipal() {
 		Scanner entrada = new Scanner(System.in);
 		
 		int opcao;
 		
 		do {
-			
-		System.out.println("——————————————«•»——————————————");
-		System.out.println("          Menu Principal       ");
-		System.out.println("——————————————«•»——————————————");
-		System.out.println(" 1- Cadastrar Novo Aluno       ");
-		System.out.println(" 2- Pesquisar Aluno            ");
-		System.out.println(" 3- Remover Aluno              ");
-		System.out.println(" 4- Exibir Alunos Cadastrados  ");
-		System.out.println(" 5- Sair  ");
-		System.out.println("——————————————«•»——————————————");
+		System.out.println("——————————————————————————————");
+		System.out.println("        Menu Principal        ");
+		System.out.println("——————————————————————————————");
+		System.out.println(" 1- Cadastrar Novo Aluno      ");
+		System.out.println(" 2- Pesquisar Aluno           ");
+		System.out.println(" 3- Remover Aluno             ");
+		System.out.println(" 4- Exibir Alunos Cadastrados ");
+		System.out.println(" 5- Sair                      ");
+		System.out.println("——————————————————————————————");
 		System.out.print("\nEscolha uma Opção: ");
 		
 	
@@ -173,10 +189,10 @@ public class Menus {
 					exibir();
 					break;
 				case 5: 
-					System.out.println("Fim da aplicação!");
+					System.out.println("\nFim da Aplicação!");
 					break;
 				default:
-					System.out.println("\nOpção inválida, tente novamente.");		
+					System.out.println("\nOpção Inválida, Tente Novamente.");		
 			}
 		}while(opcao < 1 || opcao > 5);
 		entrada.close();

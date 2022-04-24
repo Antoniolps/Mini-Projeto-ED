@@ -68,7 +68,7 @@ public class Lista {
 	}
 	
 	public void exibirPosicao(int i) {
-			System.out.println(	"\nAluno " + (i+1) + 
+			System.out.println( "\nAluno " + (i+1) + 
 								"\nNome: " + alunos[i].getNome() +
 								"\nRGM: "  + alunos[i].getRgm()  +
 								"\nDisciplinas: ");
@@ -77,7 +77,7 @@ public class Lista {
 	
 	public void exibirLista() {
 		if(isVazia())
-			System.out.println("A lista está vazia");
+			System.out.println("\nA Lista Está Vazia.");
 		
 		for(int i = 0; i < tamanho; ++i) {
 			System.out.println(	"\nAluno " + (i+1) + 
