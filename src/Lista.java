@@ -1,7 +1,7 @@
 
 public class Lista {
 	Aluno[] alunos = new Aluno[60];
-	int tamanho =0;
+	int tamanho = 0;
 	
 	
 	public boolean isVazia() {
@@ -20,7 +20,7 @@ public class Lista {
 	}
 	
 	public boolean compara(Aluno a1, Aluno a2) {
-		return(a1.nome.equals(a2.nome) && a1.rgm.equals(a2.rgm));
+		return(a1.nome.equals(a2.nome) && a1.rgm.equals(a2.rgm)); 
 	}
 	
 	public Aluno buscar(String matricula) {
@@ -39,12 +39,29 @@ public class Lista {
 	}
 	
 	public void deslocarParaDireita(int pos) {
-		for(int i = pos; i < (tamanho - 1); i++)
-			alunos[i] = alunos[i+1];
+		for(int i = this.tamanho - 1; i >= pos; --i) {
+			this.alunos[i+1] = this.alunos[i];
+		}
 	}
 	
+	public void deslocarParaEsquerda(int pos) {
+		for(int i = pos; i < tamanho - 1; i++)
+			alunos[i+1] = alunos[i];
+	}
+	
+	public int organizaLista(String rgm) {
+		if(tamanho > 0)
+			if(Integer.parseInt(rgm) < Integer.parseInt(alunos[0].getRgm())) {
+				deslocarParaDireita(0);
+				return 0;
+		}
+			
+		return tamanho;
+	}
+	
+
 	public boolean inserir(int pos, Aluno a1) {
-		if(isCheia() || (pos > tamanho) || (pos < 0))
+		if(isCheia() || (pos > tamanho) || (pos < 0)) 
 			return false;
 		
 		deslocarParaDireita(pos);
@@ -53,10 +70,6 @@ public class Lista {
 		return true;
 	}
 	
-	public void deslocarParaEsquerda(int pos) {
-		for(int i = tamanho; i > pos; i--)
-			alunos[i] = alunos[i-1];
-	}
 	
 	public boolean remover(int pos) {
 		if((pos >= tamanho) || (pos < 0))
@@ -79,7 +92,7 @@ public class Lista {
 		if(isVazia())
 			System.out.println("\nA Lista Está Vazia.");
 		
-		for(int i = 0; i < tamanho; ++i) {
+		for(int i = 0; i < tamanho; i++) {
 			System.out.println(	"\nAluno " + (i+1) + 
 								"\nNome: " + alunos[i].getNome() +
 								"\nRGM: "  + alunos[i].getRgm()  +

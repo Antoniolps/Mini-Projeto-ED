@@ -25,7 +25,7 @@ public class Aluno {
 	
 	@Override
 	public String toString() {
-		return "Aluno [nome=" + nome + ", rgm=" + rgm + ", materias=" + materias + "]";
+		return "Aluno [nome=" + nome + ", rgm=" + rgm + ", materias=" + materias + "]"; 
 	}
 	
 	

@@ -4,7 +4,7 @@ public class Disciplina {
 	String nota;
 	Disciplina proximo;
 	
-	public Disciplina(String novaDisciplina, String novaNota) {
+	public Disciplina(String novaDisciplina, String novaNota) { 
 		this.disciplina = novaDisciplina;
 		this.nota = novaNota;
 	}

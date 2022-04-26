@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Menus {
 	Lista lista = new Lista();
-	int count = 0;
+//	int count = 0;
 	
 	public void cadastrarAluno() {
 		Aluno aluno = new Aluno();
@@ -10,7 +10,7 @@ public class Menus {
 		String resposta;
 		
 		if(!lista.isCheia()) {
-			System.out.print("\nInforme o Nome do Aluno: ");
+			System.out.print("\nInforme o Nome do Aluno: "); 
 			String nome = entrada.nextLine();
 			
 			System.out.print("Informe o RGM do Aluno: ");
@@ -39,12 +39,12 @@ public class Menus {
 				
 			}while(resposta.equalsIgnoreCase("sim"));
 				
-			boolean resultado = lista.inserir(count, aluno);
+			boolean resultado = lista.inserir(lista.organizaLista(aluno.getRgm()), aluno);
 			
 			if(resultado) {
-				System.out.println("\nAluno Cadastrado Com Sucesso! Deseja Cadastrar Novo Aluno?");
+				System.out.println("\nAluno Cadastrado Com Sucesso! Deseja Cadastrar Novo Aluno?(sim/não)");
 				String resposta1 = entrada.next();
-				count++;
+//				count++;
 				if(resposta1.equalsIgnoreCase("sim"))
 					cadastrarAluno();
 				else
@@ -107,7 +107,7 @@ public class Menus {
 			boolean resultado = lista.remover(pos);
 			
 			if(resultado) {
-				count--;
+//				count--;
 				lista.exibirLista();
 				if(!lista.isVazia()) {
 					System.out.println("\nAluno Removido Com Sucesso, Deseja Remover Outro Aluno?");
@@ -157,7 +157,7 @@ public class Menus {
 	public void menuPrincipal() {
 		Scanner entrada = new Scanner(System.in);
 		
-		int opcao;
+		String opcao;
 		
 		do {
 		System.out.println("——————————————————————————————");
@@ -172,29 +172,29 @@ public class Menus {
 		System.out.print("\nEscolha uma Opção: ");
 		
 	
-			opcao = entrada.nextInt();
+			opcao = entrada.next();
 			entrada.nextLine();
 			
 			switch (opcao) {
-				case 1:
+				case "1":
 					cadastrarAluno();
 					break;
-				case 2:
+				case "2":
 					pesquisarAluno();
 					break;
-				case 3:
+				case "3":
 					removerAluno();
 					break;
-				case 4:
+				case "4":
 					exibir();
 					break;
-				case 5: 
+				case "5": 
 					System.out.println("\nFim da Aplicação!");
 					break;
 				default:
 					System.out.println("\nOpção Inválida, Tente Novamente.");		
 			}
-		}while(opcao < 1 || opcao > 5);
+		}while(Integer.parseInt(opcao) < 1 || Integer.parseInt(opcao) > 5);
 		entrada.close();
 	}
 }
