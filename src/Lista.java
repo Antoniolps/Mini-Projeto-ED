@@ -39,23 +39,21 @@ public class Lista {
 	}
 	
 	public void deslocarParaDireita(int pos) {
-		for(int i = this.tamanho - 1; i >= pos; --i) {
-			this.alunos[i+1] = this.alunos[i];
-		}
+		for(int i = tamanho; i > pos; i--)
+			alunos[i] = alunos[i-1];
 	}
 	
+	
 	public void deslocarParaEsquerda(int pos) {
-		for(int i = pos; i < tamanho - 1; i++)
-			alunos[i+1] = alunos[i];
+		for(int i = pos; i < (tamanho - 1); i++)
+			alunos[i] = alunos[i+1];
 	}
 	
 	public int organizaLista(String rgm) {
-		if(tamanho > 0)
-			if(Integer.parseInt(rgm) < Integer.parseInt(alunos[0].getRgm())) {
-				deslocarParaDireita(0);
-				return 0;
+		for(int i = 0; i < tamanho; i++) {
+			if(Integer.parseInt(rgm) < Integer.parseInt(alunos[i].getRgm()))
+				return i;
 		}
-			
 		return tamanho;
 	}
 	

@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Menus {
 	Lista lista = new Lista();
-//	int count = 0;
 	
 	public void cadastrarAluno() {
 		Aluno aluno = new Aluno();
@@ -39,12 +38,11 @@ public class Menus {
 				
 			}while(resposta.equalsIgnoreCase("sim"));
 				
-			boolean resultado = lista.inserir(lista.organizaLista(aluno.getRgm()), aluno);
+			boolean resultado = lista.inserir(lista.organizaLista(rgm), aluno);
 			
 			if(resultado) {
 				System.out.println("\nAluno Cadastrado Com Sucesso! Deseja Cadastrar Novo Aluno?(sim/não)");
 				String resposta1 = entrada.next();
-//				count++;
 				if(resposta1.equalsIgnoreCase("sim"))
 					cadastrarAluno();
 				else
@@ -107,7 +105,6 @@ public class Menus {
 			boolean resultado = lista.remover(pos);
 			
 			if(resultado) {
-//				count--;
 				lista.exibirLista();
 				if(!lista.isVazia()) {
 					System.out.println("\nAluno Removido Com Sucesso, Deseja Remover Outro Aluno?");
